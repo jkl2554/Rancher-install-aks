@@ -45,7 +45,7 @@ spec:
 
 ```
 # Application gateway 용 pip생성
-- frontend pip DNS name label 설정
+- DNS name label: \<DNS name Label\>
 
 *DNS Label 중복되지 않는 값 설정 필요  
 **개인 DNS보유 시 a record 등록 후 사용 가능  
@@ -63,7 +63,7 @@ path based rule 설정으로 다음과 같이 설정
 - Backend target :cert-validation
 
 ## frontend ip 
-- dns label 생성한 Pip 연결
+- DNS name label 생성한 pip 연결
 
 ## backend target 
 - rancher-backend
@@ -73,12 +73,14 @@ path based rule 설정으로 다음과 같이 설정
 
 ## 1. LetsEncrypt
 certbot 설치(https://certbot.eff.org/lets-encrypt/windows-other.html)
-
+- \<Your Domain\> : \<DNS name Label\>.koreacentral.cloudapp.azure.com
 ```
 ## power shell administroator권한 필요
 ## 인증서 발급 (challenge 필요) 추가 가이드
 certbot certonly --manual --email <user email> -d <Your Domain>
 ```
+*txt 레코드 인증 시 `--preferred-challenges dns` 옵션 추가
+
 아래 창에서 대기
 ```
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -226,8 +228,9 @@ ls certificate.pfx
 
 
 ## 2. app service certificate 발급
+- \<Your Domain\> : \<DNS name Label\>.koreacentral.cloudapp.azure.com
 - SKU : Standard
-- Naked domain hostname: \<Your Domain\>(DNS Label 주소 사용)  
+- Naked domain hostname: \<Your Domain\>  
 *Wild Card 도메인 사용 시 변경 필요.
 
 ### 인증서 verify 확인
