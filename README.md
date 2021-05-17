@@ -358,8 +358,8 @@ curl http://<Your Domain>/.well-known/pki-validation/godaddy.html
 - 위에서 복사한 코드로 배포
 ## worker cluster imported 확인
 
-
-https://rancher.com/docs/rancher/v2.x/en/installation/install-rancher-on-k8s/
-https://www.godaddy.com/help/verify-domain-ownership-html-or-dns-for-my-ssl-certificate-7452
-https://docs.microsoft.com/ko-kr/azure/app-service/configure-ssl-certificate#import-an-app-service-certificate
+## References
+https://rancher.com/docs/rancher/v2.x/en/installation/install-rancher-on-k8s/  
+https://www.godaddy.com/help/verify-domain-ownership-html-or-dns-for-my-ssl-certificate-7452  
+https://docs.microsoft.com/ko-kr/azure/app-service/configure-ssl-certificate#import-an-app-service-certificate  
 https://lemontia.tistory.com/865
