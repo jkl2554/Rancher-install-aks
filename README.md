@@ -2,6 +2,7 @@
 # aks Cluster 생성 
 - Loadbalancer : standard
 - Authentication method : System-assigned managed identity
+- node pool subnet : 10.0.1.250, 10.0.1.251 이 포함된 서브넷(예: 10.0.1.0/24)
 
 ## internal LB생성을 위해 subnet에 권한 추가
 
@@ -46,17 +47,15 @@ spec:
 
 ```
 # Application gateway 용 pip생성
+- frontend pip DNS name label 설정
 
-## frontend pip DNS name label 설정
-*DNS Label 중복되지 않는 값 설정 필요
-**개인 DNS보유 시 a record 등록 후 사용 가능
-
+*DNS Label 중복되지 않는 값 설정 필요  
+**개인 DNS보유 시 a record 등록 후 사용 가능  
 
 # Application gateway 생성
-
 ## backend pool
-rancher-backend : 10.0.1.250
-cert-validation : 10.0.1.251
+- rancher-backend : 10.0.1.250
+- cert-validation : 10.0.1.251
 
 ## rules
 path based rule 설정으로 다음과 같이 설정
