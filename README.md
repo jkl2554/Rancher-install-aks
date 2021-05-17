@@ -77,7 +77,7 @@ certbot 설치(https://certbot.eff.org/lets-encrypt/windows-other.html)
 ```
 ## power shell administroator권한 필요
 ## 인증서 발급 (challenge 필요) 추가 가이드
-certbot certonly --manual --email \<user email\> -d \<Your Domain\>
+certbot certonly --manual --email <user email> -d <Your Domain>
 ```
 아래 창에서 대기
 ```
