@@ -231,6 +231,7 @@ ls certificate.pfx
 - \<Your Domain\> : \<DNS name Label\>.koreacentral.cloudapp.azure.com
 - SKU : Standard
 - Naked domain hostname: \<Your Domain\>  
+
 *Wild Card 도메인 사용 시 변경 필요.
 
 ### 인증서 verify 확인
