@@ -79,7 +79,7 @@ certbot 설치(https://certbot.eff.org/lets-encrypt/windows-other.html)
 ## 인증서 발급 (challenge 필요) 추가 가이드
 certbot certonly --manual --email <user email> -d <Your Domain>
 ```
-*txt 레코드 인증 시 `--preferred-challenges dns` 옵션 추가
+*txt 레코드 인증 시 `--preferred-challenges dns` 옵션 추가  
 **wild card 도메인 사용 시 `-d *.<Your Domain>` 옵션 추가
 
 아래 창에서 대기
