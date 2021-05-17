@@ -70,10 +70,11 @@ path based rule 설정으로 다음과 같이 설정
 ## backend target 
 - rancher-backend
 
-# 인증서 발급
+# 인증서 발급 및 Listener에 등록
 *1, 2 선택
+<details>
+<summary><h2>1. LetsEncrypt</h2></summary>
 
-## 1. LetsEncrypt
 certbot 설치(https://certbot.eff.org/lets-encrypt/windows-other.html)
 - \<Your Domain\> : \<DNS name Label\>.koreacentral.cloudapp.azure.com
 ```
@@ -228,9 +229,10 @@ ls certificate.pfx
 - Certificate \<cert name\>
 
 *pfx파일을 직접 업로드 해 Application gateway 인증서 생성 가능
+</details>
+<details>
+<summary><h2>2. app service certificate</h2></summary>
 
-
-## 2. app service certificate 발급
 - \<Your Domain\> : \<DNS name Label\>.koreacentral.cloudapp.azure.com
 - SKU : Standard
 - Naked domain hostname: \<Your Domain\>  
@@ -322,6 +324,7 @@ curl http://<Your Domain>/.well-known/pki-validation/godaddy.html
 - Certificate : 위에서 복사한 Secret Idetntifier
 
 *만약 certficate가 콤보박스 형태로 나온다면 keyvault에서 유저권한 list퍼미션 제거 필요
+</details>
 
 ## https 규칙 생성
 - Listener : https-listener
