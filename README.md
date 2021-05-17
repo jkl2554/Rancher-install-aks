@@ -6,11 +6,11 @@
 
 ## internal LB생성을 위해 subnet에 권한 추가
 
-- role : Network Contributor
-- select : <aks Cluster name>
+- role: Network Contributor
+- select: <aks Cluster name>
 
-- role : reader
-- select : <aks Cluster name>
+- role: reader
+- select: <aks Cluster name>
 
 # rancher 설치 (helm 차트)
 ```
