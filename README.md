@@ -1,4 +1,5 @@
-*인증서 가격이 상당히 비쌉니다.
+*인증서 가격이 상당히 비쌉니다.  
+**Windows Power Shell 사용
 # aks Cluster 생성 
 - Loadbalancer : standard
 - Authentication method : System-assigned managed identity
