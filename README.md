@@ -46,6 +46,7 @@ spec:
 
 ```
 # Application gateway 용 pip생성
+- SKU: Standard
 - DNS name label: \<DNS name Label\>
 
 *DNS Label 중복되지 않는 값 설정 필요  
