@@ -82,7 +82,6 @@ certbot 설치(https://certbot.eff.org/lets-encrypt/windows-other.html)
 - \<Your Domain\> : \<DNS name Label\>.koreacentral.cloudapp.azure.com
 ```
 ## power shell administroator권한 필요
-## 인증서 발급 (challenge 필요) 추가 가이드
 certbot certonly --manual --email <user email> -d <Your Domain>
 ```
 *txt 레코드 인증 시 `--preferred-challenges dns` 옵션 추가  
