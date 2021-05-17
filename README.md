@@ -72,9 +72,11 @@ path based rule 설정으로 다음과 같이 설정
 
 # 인증서 발급 및 Listener에 등록
 *1, 2 선택
+## 1. LetsEncrypt
 <details>
-<summary><h2>1. LetsEncrypt</h2></summary>
-
+<summary>
+  접기 / 펼치기
+</summary>
 certbot 설치(https://certbot.eff.org/lets-encrypt/windows-other.html)
 - \<Your Domain\> : \<DNS name Label\>.koreacentral.cloudapp.azure.com
 ```
@@ -230,9 +232,12 @@ ls certificate.pfx
 
 *pfx파일을 직접 업로드 해 Application gateway 인증서 생성 가능
 </details>
+## 2. app service certificate
 <details>
-<summary><h2>2. app service certificate</h2></summary>
-
+  <summary>
+  접기 / 펼치기
+</summary>
+  
 - \<Your Domain\> : \<DNS name Label\>.koreacentral.cloudapp.azure.com
 - SKU : Standard
 - Naked domain hostname: \<Your Domain\>  
