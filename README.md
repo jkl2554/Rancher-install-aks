@@ -1,6 +1,16 @@
 *인증서 가격이 상당히 비쌉니다.
 # aks Cluster 생성 
+- Loadbalancer : standard
+- Authentication method : System-assigned managed identity
+
 ## internal LB생성을 위해 subnet에 권한 추가
+
+- role : Network Contributor
+- select : <aks Cluster name>
+
+- role : reader
+- select : <aks Cluster name>
+
 # rancher 설치 (helm 차트)
 ```
 helm repo add rancher-stable https://releases.rancher.com/server-charts/stable
@@ -38,10 +48,26 @@ spec:
 # Application gateway 용 pip생성
 
 ## frontend pip DNS name label 설정
-
-
 *DNS Label 중복되지 않는 값 설정 필요
 **개인 DNS보유 시 a record 등록 후 사용 가능
+
+
+# Application gateway 생성
+
+## backend pool
+rancher-backend : 10.0.1.250
+cert-validation : 10.0.1.251
+
+## rules
+path based rule 설정으로 다음과 같이 설정
+- path : /.well-known/*
+- target name : cert-validation
+- http settings : http
+- Backend target :cert-validation
+
+## frontend ip : dns label 생성한 Pip 연결
+
+## backend target : rancher-backend
 
 # 인증서 발급
 1, 2 선택
@@ -67,34 +93,7 @@ http://<Your Domain>/.well-known/acme-challenge/<File Name>
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Press Enter to Continue
 ```
-
-
-##2. app service certificate 발급
-SKU : Standard
-Naked domain hostname: <Your Domain>(DNS Label 주소 사용)
-
-# Application gateway 생성
-
-## backend pool
-rancher-backend : 10.0.1.250
-cert-validation : 10.0.1.251
-
-## rules
-path based rule 설정으로 다음과 같이 설정
-- path : /.well-known/*
-- target name : cert-validation
-- http settings : http
-- Backend target :cert-validation
-
-## frontend ip : dns label 생성한 Pip 연결
-
-## backend target : rancher-backend
-
-# certificate validation을 위해 aks에 앱 생성
-
-인증서 발급 시 선택한 방법 사용
-
-## 1. letsencrypt certificate
+## certificate validation을 위해 aks에 앱 생성
 ```
 apiVersion: v1
 kind: ConfigMap
@@ -150,6 +149,12 @@ spec:
     port:  80
     targetPort:  80
 ```
+## 인증 앱 배포 확인
+```
+curl http://<Your Domain>/.well-known/acme-challenge/<File Name>
+<Validation Code>
+```
+
 인증서 발급 확인(Letsecrypt 인증서 발급 시 대기화면에서 엔터 입력)
 ```
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -196,11 +201,39 @@ openssl pkcs12 -export -out certificate.pfx -inkey privkey.pem -in cert.pem -cer
 Enter Export Password:
 Verifying - Enter Export Password:
 ```
+# pfx 파일 확인
+```
+ls certificate.pfx
+```
+## azure key vault 생성해 인증서 upload
+- certificate- + Genterate/Import
+- Method of Certificate Creation: Import
+- Certificate Name: <cert name>
+- Upload Certificate File: C:/Certbot/live/<Your Domain>/certificate.pfx
+- Password: pfx인증서 생성시 입력한 패스워드 입력
+
+## Application gateway에 인증서 등록을 위해 Managed ID 생성
+- Managed Identity 생성
+- key vault - add access policy: managed id 등록 및 certificate 권한에 get추가
+
+## application gateway https-listener추가
+- Choose a certificate: Choose a certificate from Key Vault
+- Managed identity: 위에서 생성한 Managed Identity
+- Key Vault: 생성한 Key vault
+- Certificate <cert name>
+
+*pfx파일을 직접 업로드 해 Application gateway 인증서 생성 가능
 
 
-pfx 파일 확인
+##2. app service certificate 발급
+SKU : Standard
+Naked domain hostname: <Your Domain>(DNS Label 주소 사용)
 
-## 2. Azure App service Certificate
+## 인증서 verify 확인
+- Certificate Configuration - Verify
+- <Validation Code> 
+
+## certificate validation을 위해 aks에 앱 생성
 ```
 apiVersion: v1
 kind: ConfigMap
@@ -257,12 +290,13 @@ spec:
     port:  80
     targetPort:  80
 ```
-
-
 ## 인증 앱 배포 확인
-# 인증서 verify 확인
+```
+curl http://<Your Domain>/.well-known/pki-validation/godaddy.html
+<Validation Code>
+```
+
 # azure key vault 생성해 인증서 store
-# key vault에서 인증서 확인
 
 ## Secret Idetntifier 복사
 
@@ -271,13 +305,7 @@ spec:
 ## 하단 user권한에 본인 계정 권한 중 secret, certificate 퍼미션 list권한 제거
 
 
-# application gateway https-listener추가
-## https-listener생성
-## 1. letsencrypt
-pfx파일 업로드
-Password : 인증서 변환시 입력한 패스워드 입력
-
-## 2. App service certificate
+## application gateway https-listener추가
 - managed id : 위에서 생성한 managed id
 - key vault : 인증서가 들어있는 키볼트
 - Certificate : 위에서 복사한 Secret Idetntifier
