@@ -84,11 +84,11 @@ certbot certonly --manual --email \<user email\> -d \<Your Domain\>
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Create a file containing just this data:
 
-\<Validation Code\>
+<Validation Code>
 
 And make it available on your web server at this URL:
 
-http://\<Your Domain\>/.well-known/acme-challenge/\<File Name\>
+http://<Your Domain>/.well-known/acme-challenge/<File Name>
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Press Enter to Continue
@@ -102,8 +102,8 @@ metadata:
   labels:
     app: challenge
 data:
-  \<File Name\>: |
-    \<Validation Code\>
+  <File Name>: |
+    <Validation Code>
 
 ---
 apiVersion: apps/v1
@@ -151,8 +151,8 @@ spec:
 ```
 ### 인증 앱 배포 확인
 ```
-curl http://\<Your Domain\>/.well-known/acme-challenge/\<File Name\>
-\<Validation Code\>
+curl http://<Your Domain>/.well-known/acme-challenge/<File Name>
+<Validation Code>
 ```
 
 인증서 발급 확인(Letsecrypt 인증서 발급 시 대기화면에서 엔터 입력)
@@ -160,11 +160,11 @@ curl http://\<Your Domain\>/.well-known/acme-challenge/\<File Name\>
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Create a file containing just this data:
 
-\<Validation Code\>
+<Validation Code>
 
 And make it available on your web server at this URL:
 
-http://\<Your Domain\>/.well-known/acme-challenge/\<File Name\>
+http://<Your Domain>/.well-known/acme-challenge/<File Name>
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Press Enter to Continue
@@ -193,7 +193,7 @@ IMPORTANT NOTES:
 ### pfx 인증서 생성([open ssl](https://www.xolphin.com/support/OpenSSL/OpenSSL_-_Installation_under_Windows) 설치 필요)
 
 ```
-cd C:/Certbot/live/\<Your Domain\>
+cd C:/Certbot/live/<Your Domain>
 openssl pkcs12 -export -out certificate.pfx -inkey privkey.pem -in cert.pem -certfile chain.pem
 ```
 *Password 설정 필요
@@ -245,7 +245,7 @@ metadata:
     app: challenge
 data:
   godaddy.html: |
-    \<Validation Code\>
+    <Validation Code>
 
 ---
 apiVersion: apps/v1
@@ -294,8 +294,8 @@ spec:
 ```
 ### 인증 앱 배포 확인
 ```
-curl http://\<Your Domain\>/.well-known/pki-validation/godaddy.html
-\<Validation Code\>
+curl http://<Your Domain>/.well-known/pki-validation/godaddy.html
+<Validation Code>
 ```
 
 ### azure key vault 에 인증서 store
