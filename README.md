@@ -232,6 +232,7 @@ ls certificate.pfx
 
 *pfx파일을 직접 업로드 해 Application gateway 인증서 생성 가능
 </details>
+
 ## 2. app service certificate
 <details>
   <summary>
