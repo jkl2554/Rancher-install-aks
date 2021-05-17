@@ -77,6 +77,7 @@ path based rule 설정으로 다음과 같이 설정
 <summary>
   접기 / 펼치기
 </summary>
+    
 certbot 설치(https://certbot.eff.org/lets-encrypt/windows-other.html)
 - \<Your Domain\> : \<DNS name Label\>.koreacentral.cloudapp.azure.com
 ```
